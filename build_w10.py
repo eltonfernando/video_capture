@@ -14,7 +14,7 @@ import numpy
 
 GUI2Exe_Target_1 = Executable(
     script="main.py",
-    # base="Win32GUI",
+    base="Win32GUI",
     target_name="videoCapure.exe",
 )
 excludes = ["tkinter"]
