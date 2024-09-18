@@ -53,8 +53,8 @@ salve_video = Video(fps=FPS, format="mp4", out_name=os.path.join("videos", new_n
 cam = CriateCamera()
 cam.set_started_processo(True)
 serve_cloud = MyFTP()
-serve_cloud.connect()
-serve_cloud.start()
+if serve_cloud.connect():
+    serve_cloud.start()
 counter_frame = 0
 while True:
     img = cam.read_frame()
@@ -86,8 +86,8 @@ while True:
 
         if not serve_cloud.is_alive():
             serve_cloud = MyFTP()
-            serve_cloud.connect()
-            serve_cloud.start()
+            if serve_cloud.connect():
+                serve_cloud.start()
 
         counter_frame = 0
     counter_frame += 1

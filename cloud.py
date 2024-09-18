@@ -26,10 +26,14 @@ class MyFTP(Thread):
         HOSTNAME = conf_data.get_host_name()
         USERNAME = conf_data.get_user_name()
         PASSWORD = conf_data.get_password()
-        self.ftp_server = ftplib.FTP(HOSTNAME, USERNAME, PASSWORD)
-        self.ftp_server.encoding = conf_data.get_encoding()
-        self.ftp_server.cwd("dataset")
-        return True
+        try:
+            self.ftp_server = ftplib.FTP(HOSTNAME, USERNAME, PASSWORD)
+            self.ftp_server.encoding = conf_data.get_encoding()
+            self.ftp_server.cwd("dataset")
+            return True
+        except Exception as e:
+            print(e)
+            return False
 
     def write_remote_file(self, local_file):
 
