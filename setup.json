@@ -1,0 +1,11 @@
+{
+    "RSTP": 0,
+    "FPS": 10,
+    "FTP_HOSTNAME": "ftp.visioncompy.com",
+    "FTP_USERNAME": "dataset@visioncompy.com",
+    "FTP_PASSWORD": "g]?cUl)5mDo*",
+    "encoding": "utf-8",
+    "manter_copia_local": 1,
+    "ID_CAM": "elton",
+    "TIME_SPLIT_VIDEO_MINU": 30
+}
