@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import cv2
+from logging import getLogger
 from collections import deque
 from cloud import MyFTP
 import numpy as np
@@ -7,9 +8,11 @@ import datetime
 from config import Data
 from salve_video import Video
 from cam import CriateCamera
-
+from utils import default_log
 import os
 
+default_log()
+log = getLogger(__name__)
 if not os.path.isdir("videos"):
     os.mkdir("videos")
 os.makedirs("videos", exist_ok=True)
@@ -72,11 +75,11 @@ while True:
     if valor_bar < 2:
         cv2.putText(img, "continuo", (20, img.shape[0] - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 0, 0), 2, cv2.LINE_AA)
     else:
-        cv2.putText(img, "movimento", (20, img.shape[0] - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 0, 0), 2, cv2.LINE_AA)
+        cv2.putText(img, "stop", (20, img.shape[0] - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 0, 0), 2, cv2.LINE_AA)
     cv2.imshow("janela", img)
 
     if TIME_SPLIT_VIDEO_MINU * 10 < counter_frame // FPS:
-        print("novo video")
+        log.info("novo video")
         salve_video.close()
         path = salve_video.get_path_out()
         out = os.path.join("upload", os.path.basename(path))

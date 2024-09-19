@@ -8,11 +8,13 @@ ob.write_frame(frame)
 # novo video
 ob.set_name_out("novo")
 """
+from logging import getLogger
 import cv2
 
 
 class Video:
     def __init__(self, format="avi", fps=15, out_name="saida"):
+        self.log = getLogger(__name__)
         self.format = format
         self.fps = fps
         self.out_name = out_name
@@ -23,7 +25,7 @@ class Video:
     def get_path_out(self):
         return self.out_name
 
-    def set_name_out(self, name_out):
+    def set_name_out(self, name_out: str):
         self.ob_write = None
         self.out_name = name_out
         self.set_fourcc()
@@ -42,7 +44,10 @@ class Video:
             self.ob_write.write(frame)
 
     def close(self):
-        self.ob_write.release()
+        try:
+            self.ob_write.release()
+        except Exception as error:
+            self.log.error(error, exc_info=error)
 
 
 if __name__ == "__main__":

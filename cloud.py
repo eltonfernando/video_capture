@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from logging import getLogger
 from config import Data
 import ftplib
 import os
@@ -9,15 +10,16 @@ from glob import glob
 class MyFTP(Thread):
     def __init__(self):
         Thread.__init__(self)
-        print("criando th ftp")
+        self.log = getLogger(__name__)
+        self.log.info("criando th ftp")
 
     def run(self) -> None:
         list_videos = glob(os.path.join("upload", "*.mp4"))
         if len(list_videos) == 0:
-            print("sem video para enviar")
+            self.log.info("sem video para enviar")
             return
         for path_video in list_videos:
-            print(f"enviando.. {path_video}")
+            self.log.info(f"enviando.. {path_video}")
             self.write_remote_file(path_video)
         self.ftp_server.close()
 
@@ -38,14 +40,14 @@ class MyFTP(Thread):
     def write_remote_file(self, local_file):
 
         if not os.path.isfile(local_file):
-            print(f"não encontrou arquivo {local_file}")
+            self.log.info(f"não encontrou arquivo {local_file}")
             return
         filename = os.path.basename(local_file)
-        print(self.ftp_server.pwd())
+        self.log.info(self.ftp_server.pwd())
 
         with open(local_file, "rb") as file:
             self.ftp_server.storbinary(f"STOR {filename}", file)
-        print(f"uploud concluido")
+        self.log.info(f"uploud concluido")
         if Data().get_status_copia_local() == 0:
             os.remove(local_file)
 
