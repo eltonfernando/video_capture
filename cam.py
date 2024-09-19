@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from logging import getLogger
 import cv2
 from config import Data
 from time import sleep
@@ -10,12 +11,13 @@ class CriateCamera(object):
 
     def __init__(self):
         self.statc_frame = None
+        self.log = getLogger(__name__)
 
     def read_frame(self):
         status: bool = True
         frame = None
         while not self.cap.isOpened():
-            print(f"conectando...{Data().get_rstp()}")
+            self.log.info(f"conectando...{Data().get_rstp()}")
 
             self.cap.open(Data().get_rstp())
             sleep(1)
@@ -25,7 +27,7 @@ class CriateCamera(object):
             self.statc_frame = frame
             return frame
         else:
-            print("frame static")
+            self.log.info("frame static")
             self.cap.release()
             self.cap.open(Data().get_rstp())
             return self.statc_frame
