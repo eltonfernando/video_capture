@@ -3,7 +3,7 @@ import os
 from cx_Freeze import setup, Executable
 from glob import glob
 
-VERSION = "5.1.2"
+VERSION = "0.0.0"
 for data_db in glob(os.path.join("save_locale", "*.db")):
     os.remove(data_db)
 
