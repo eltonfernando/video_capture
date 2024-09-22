@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import cv2
+import shutil
 from logging import getLogger
 from collections import deque
 from cloud import MyFTP
@@ -26,7 +27,8 @@ def nothing(x):
     pass
 
 
-cv2.namedWindow("janela")
+name_janela = f"videCapture {__version__}"
+cv2.namedWindow(name_janela, cv2.WINDOW_NORMAL)
 bg = cv2.createBackgroundSubtractorMOG2(history=100, detectShadows=False)
 cv2.createTrackbar("Sensibilidade", "janela", 1, 25, nothing)
 
@@ -78,14 +80,17 @@ while True:
         cv2.putText(img, "continuo", (20, img.shape[0] - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 0, 0), 2, cv2.LINE_AA)
     else:
         cv2.putText(img, "stop", (20, img.shape[0] - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 0, 0), 2, cv2.LINE_AA)
-    cv2.imshow("janela", img)
+    cv2.imshow(name_janela, cv2.resize(img, None, None, 0.4, 0.4))  # img = cv2.flip(img)
 
     if TIME_SPLIT_VIDEO_MINU * 10 < counter_frame // FPS:
         log.info("novo video")
         salve_video.close()
         path = salve_video.get_path_out()
         out = os.path.join("upload", os.path.basename(path))
-        os.rename(path, out)
+        try:
+            shutil.move(path, out)
+        except Exception as error:
+            log.error(error, exc_info=error)
 
         salve_video.set_name_out(os.path.join("videos", new_name_video()))
 
@@ -100,4 +105,5 @@ while True:
     k = cv2.waitKey(FPS)
     if k == ord("q"):
         salve_video.close()
+        cv2.destroyAllWindows()
         break
