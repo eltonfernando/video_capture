@@ -2,12 +2,11 @@
 name = "cz_conventional_commits"
 tag_format = "$version"
 version_scheme = "pep440"
-version = "0.0.2"
+version = "0.0.3"
 version_files = [
     "main.py:__version__",
     ".cz.toml:version",
     "build_w10.py:VERSION"
-
 ]
 update_changelog_on_bump = true
 major_version_zero = true

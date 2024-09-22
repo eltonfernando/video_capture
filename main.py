@@ -12,7 +12,7 @@ from cam import CriateCamera
 from utils import default_log
 import os
 
-__version__ = "0.0.0"
+__version__ = "0.0.3"
 os.environ["__VERSION__"] = __version__
 default_log()
 log = getLogger(__name__)
