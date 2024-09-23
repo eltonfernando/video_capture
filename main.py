@@ -30,7 +30,7 @@ def nothing(x):
 name_janela = f"videCapture {__version__}"
 cv2.namedWindow(name_janela, cv2.WINDOW_NORMAL)
 bg = cv2.createBackgroundSubtractorMOG2(history=100, detectShadows=False)
-cv2.createTrackbar("Sensibilidade", "janela", 1, 25, nothing)
+cv2.createTrackbar("Sensibilidade", name_janela, 1, 25, nothing)
 
 FPS = config_data.get_fps()
 TIME_SPLIT_VIDEO_MINU = config_data.get_time_split_video()
@@ -68,7 +68,7 @@ while True:
     if img is None:
         continue
 
-    valor = cv2.getTrackbarPos("Sensibilidade", "janela")
+    valor = cv2.getTrackbarPos("Sensibilidade", name_janela)
     valor_bar = int(np.exp(valor))
 
     total = movimento(img)
