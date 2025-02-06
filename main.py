@@ -80,7 +80,7 @@ while True:
         cv2.putText(img, "continuo", (20, img.shape[0] - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 0, 0), 2, cv2.LINE_AA)
     else:
         cv2.putText(img, "stop", (20, img.shape[0] - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 0, 0), 2, cv2.LINE_AA)
-    cv2.imshow(name_janela, cv2.resize(img, None, None, 0.4, 0.4))  # img = cv2.flip(img)
+    cv2.imshow(name_janela, cv2.resize(img, None, None, 0.5, 0.5))
 
     if TIME_SPLIT_VIDEO_MINU * 10 < counter_frame // FPS:
         log.info("novo video")
