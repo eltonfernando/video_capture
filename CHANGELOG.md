@@ -1,3 +1,11 @@
+## 0.0.4 (2025-04-23)
+
+### Fix
+
+- **update**: update
+- fo build main
+- erro nome janela
+
 ## 0.0.3 (2024-09-22)
 
 ### Fix
